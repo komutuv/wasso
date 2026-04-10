@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IBAN</title>
+
+<style>
+body{
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+background:#0b1220;
+color:#fff;
+margin:0;
+}
+
+.wrap{
+max-width:520px;
+margin:0 auto;
+padding:22px;
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+.card{
+background:#111b31;
+border:1px solid rgba(255,255,255,.12);
+border-radius:18px;
+padding:18px;
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+h1{
+font-size:18px;
+margin:0 0 10px;
+}
+
+.label{
+font-size:12px;
+opacity:.75;
+margin-top:12px;
+}
+
+.value{
+font-size:15px;
+font-weight:700;
+line-height:1.35;
+word-break:break-word;
+}
+
+.ibanBox{
+margin-top:10px;
+padding:12px;
+background:#0b1220;
+border:1px dashed rgba(255,255,255,.25);
+border-radius:14px;
+}
+
+.btns{
+display:flex;
+gap:8px;
+margin-top:12px;
+flex-wrap:wrap;
+}
+
+button,a.btn{
+border:0;
+cursor:pointer;
+padding:10px 12px;
+border-radius:12px;
+font-weight:700;
+text-decoration:none;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+font-size:13px;
+}
+
+.primary{
+background:#e11d48;
+color:#fff;
+}
+
+.secondary{
+background:rgba(255,255,255,.12);
+color:#fff;
+border:1px solid rgba(255,255,255,.18);
+}
+
+.toast{
+margin-top:8px;
+font-size:12px;
+color:#a7f3d0;
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<!-- 1. BANKA -->
+<div class="card">
+<h1>QNB Finansbank</h1>
+
+<div class="label">Alıcı</div>
+<div class="value">Nazım Hikmet GÜR</div>
+
+<div class="label">IBAN</div>
+<div class="ibanBox">
+<div class="value">TR20 0011 1000 0000 0037 9299 61</div>
+</div>
+
+<div class="btns">
+<button class="primary" onclick="copyIBAN('TR200011100000000037929961',this)">Kopyala</button>
+<button class="secondary" onclick="shareIBAN('QNB Finansbank','Nazım Hikmet GÜR','TR20 0011 1000 0000 0037 9299 61',this)">Paylaş</button>
+<a class="btn secondary" target="_blank"
+href="https://wa.me/?text=Banka:%20QNB%20Finansbank%0AAl%C4%B1c%C4%B1:%20Naz%C4%B1m%20Hikmet%20G%C3%9CR%0AIBAN:%20TR20%200011%201000%200000%200037%209299%2061">
+WhatsApp</a>
+</div>
+
+<div class="toast">Kopyalandı ✅</div>
+</div>
+
+
+<!-- 2. BANKA -->
+<div class="card">
+<h1>Ziraat Bankası</h1>
+
+<div class="label">Alıcı</div>
+<div class="value">ABDULRAHİM GÜLDAĞ</div>
+
+<div class="label">IBAN</div>
+<div class="ibanBox">
+<div class="value">TR65 0001 0016 9186 3590 9550 0107</div>
+</div>
+
+<div class="btns">
+<button class="primary" onclick="copyIBAN('TR65000100169186359095500107',this)">Kopyala</button>
+<button class="secondary" onclick="shareIBAN('Ziraat Bankası','ABDULRAHİM GÜLDAĞ','TR65 0001 0016 9186 3590 9550 0107',this)">Paylaş</button>
+<a class="btn secondary" target="_blank"
+href="https://wa.me/?text=Banka:%20Ziraat%20Bankas%C4%B1%0AAl%C4%B1c%C4%B1:%20ABDULRAH%C4%B0M%20G%C3%9CLDA%C4%9E%0AIBAN:%20TR65%200001%200016%209186%203590%209550%200107">
+WhatsApp</a>
+</div>
+
+<div class="toast">Kopyalandı ✅</div>
+</div>
+
+</div>
+
+<script>
+
+function showToast(el){
+const toast=el.closest(".card").querySelector(".toast");
+toast.style.display="block";
+setTimeout(()=>toast.style.display="none",1500);
+}
+
+function copyIBAN(iban,btn){
+navigator.clipboard.writeText(iban);
+showToast(btn);
+}
+
+function shareIBAN(bank,name,iban,btn){
+const text=`Banka: ${bank}
+Alıcı: ${name}
+IBAN: ${iban}`;
+
+if(navigator.share){
+navigator.share({title:"Ödeme Bilgileri",text});
+}else{
+navigator.clipboard.writeText(text);
+showToast(btn);
+}
+}
+
+</script>
+
+</body>
+</html>
